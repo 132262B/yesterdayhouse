@@ -19,24 +19,31 @@ import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-public class UploadImageFile {
+public class UploadImageCtr {
 	
 	@RequestMapping(value="/uploadImage", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String uploadImage(@RequestParam("file") MultipartFile multipartFile)  {
+	public String uploadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest req)  {
 		JsonObject jsonObject = new JsonObject();
+		
+		// 이미지 저장 폴더 위치 지정
+		String directory = req.getParameter("directory");
+		if(directory.equals("") || directory.equals(null)) {
+			directory = "image";
+		}
+		
 		
 		// 내부경로로 저장
 		String MainDirectory = "Yesterdayhouse_image"; // 이미지 저장소 메인 폴더
 		String rootPath = "C:\\"+MainDirectory; // 이미지 저장소 경로
-		String directory = "image"; // 분류 폴더 이름
 		String fileRoot = rootPath+File.separator+directory+File.separator; // File.separator 는 운영체제에 따라 간결하게 (/,\,.) 등으로 변환해준다.
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 		
-		File targetFile = new File(fileRoot + savedFileName);	
+		File targetFile = new File(fileRoot + savedFileName);
+		
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장

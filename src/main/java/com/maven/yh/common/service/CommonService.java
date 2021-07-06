@@ -10,7 +10,7 @@ import com.maven.yh.common.vo.CategoryVO;
 
 
 @Service
-public class MainService {
+public class CommonService {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

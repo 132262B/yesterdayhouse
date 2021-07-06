@@ -1,39 +1,47 @@
 package com.maven.yh.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.maven.yh.admin.service.AddProductService;
+import com.maven.yh.admin.vo.AddProductVO;
+import com.maven.yh.common.service.CommonService;
+import com.maven.yh.common.vo.CategoryVO;
 
 
 @Controller
+@RequestMapping(value = "/admin/*")
 public class AddProductCtr {
 
 	@Autowired
 	private AddProductService AddProductService;
+	
+	@Autowired
+	private CommonService CommonService; // 카테고리를 호출하기 위해 공용
 
-	@RequestMapping(value = "/admin/addProduct")
-		public String home(HttpServletRequest req) {
-			
-			return "admin/addProduct";
-		}
+	@RequestMapping(value = "addProduct")
+	public String addProduct(HttpServletRequest req, ModelMap ModelMap) {
+
+		// 카테고리 출력
+		List<CategoryVO> categoryList = CommonService.getCategory();
+		
+		ModelMap.addAttribute("categoryList",categoryList);
+
+		return "admin/addProduct";
+	}
 	
-	
-	@RequestMapping("/imageUpload")
-	@ResponseBody
-	public void imageUpload(HttpServletRequest req, HttpServletResponse resp, @RequestParam MultipartFile upload) throws Exception {
+	@RequestMapping(value = "addProduct/add")
+	public String addProductAdd(AddProductVO av, ModelMap ModelMap) {
 		
-		String fileName = upload.getOriginalFilename();
-		
-		System.out.println(fileName);
-		
+		int result = AddProductService.setAddProduct(av);
+
+		return "redirect:/admin/main";
 	}
 
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.maven.yh.common.service.MainService;
+import com.maven.yh.common.service.CommonService;
 import com.maven.yh.common.vo.CategoryVO;
 
 
@@ -17,12 +17,10 @@ import com.maven.yh.common.vo.CategoryVO;
 public class MainCtr {
 	
 	@Autowired
-	private MainService MainService;
+	private CommonService CommonService;
 
 	@RequestMapping(value = "/home")
 	public String home(HttpServletRequest req) {
-		
-		
 		return "main/home";
 	}
 	
@@ -31,7 +29,7 @@ public class MainCtr {
 	public String header(HttpServletRequest req, ModelMap ModelMap) {
 		
 		// header에 카테고리에 db에서 카테고리 목록을 받아와 출력시킨다.
-		List<CategoryVO> categoryMain = MainService.getCategory();
+		List<CategoryVO> categoryMain = CommonService.getCategory();
 		ModelMap.addAttribute("categoryList",categoryMain);
 		
 		return "layout/header";

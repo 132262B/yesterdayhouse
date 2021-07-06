@@ -25,68 +25,8 @@
 <script src="${root}/assets/summernote/summernote-lite.min.js"></script>
 <script src="${root}/assets/summernote/lang/summernote-ko-KR.js"></script>
 
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-	var toolbar = [
-		    // 글꼴 설정
-		    ['fontname', ['fontname']],
-		    // 글자 크기 설정
-		    ['fontsize', ['fontsize']],
-		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		    // 글자색
-		    ['color', ['forecolor','color']],
-		    // 표만들기
-		    ['table', ['table']],
-		    // 글머리 기호, 번호매기기, 문단정렬
-		    ['para', ['ul', 'ol', 'paragraph']],
-		    // 줄간격
-		    ['height', ['height']],
-		    // 그림첨부, 링크만들기, 동영상첨부
-		    ['insert',['picture','link','video']],
-		    // 코드보기, 확대해서보기, 도움말
-		    ['view', ['codeview'/* ,'fullscreen', 'help' */]]
-		  ];
-
-	var setting = {
-            height : 500,
-            minHeight : 300,
-            maxHeight : null,
-            focus : true,
-            lang : 'ko-KR',
-            toolbar : toolbar,
-            callbacks : { //여기 부분이 이미지를 첨부하는 부분
-            onImageUpload : 
-            	function(files, editor, welEditable) {
-		            for (var i = files.length - 1; i >= 0; i--) {
-		            uploadSummernoteImageFile(files[i],
-		            this);
-		            	}
-		            }
-		          }
-		        };
-
-        $('#summernote').summernote(setting);
-        });
-        
-	function uploadSummernoteImageFile(file, el) {
-		data = new FormData();
-		data.append("file", file);
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : "/uploadImage",
-			contentType : false,
-			enctype : 'multipart/form-data',
-			processData : false,
-			success : function(data) {
-				$(el).summernote('editor.insertImage', data.url);
-			}
-		});
-}
-</script>
+<!-- js -->
+<script src="${root}/assets/js/admin/addProduct.js"></script>
 
 </head>
 <body>
@@ -96,14 +36,13 @@ $(document).ready(function() {
 			<h6>메인 > 상품관리 > 상품등록</h6>
 			<div class="col-12">
 				<br>
-				<form action="/admin/addProduct" method="post">
+				<form action="${root}/admin/addProduct/add" method="post">
 					<table class="table bg-white" >
 						<thead>
 							<tr>
 								<td class="col-1 text-center">상품 카테고리</td>
 								<td colspan="3">
 									<select name="categoryMain" id="categoryMain" onchange="categoryMainChange()">
-										<option value="null" selected disabled>선택하세요.</option>
 										<c:forEach var="list" items="${categoryList}">
 											<option value="${list.id}">${list.name}</option>
 										</c:forEach>
@@ -113,18 +52,27 @@ $(document).ready(function() {
 						</thead>
 						<tbody>
 							<tr>
-								<td rowspan="3" class="col-1 text-center">대표이미지</td>
-								<td class="col-5"rowspan="3"><input type="file"></td>
+								<td rowspan="4" class="col-1 text-center">대표이미지</td>
+								<td class="col-5"rowspan="4">
+									<textarea id="summernoteThumbnail" name="thumbnail" rows="30"></textarea>
+								</td>
 								<td class="col-1 text-center">상품명</td>
-								<td class="col-5"><input type="text" class="form-control" id="productName" name="productName"></td>
+								<td class="col-5"><input type="text" class="form-control" id="productName" name="productName" required></td>
 							</tr>
 							<tr>
 								<td class="col-1 text-center">판매가</td>
-								<td><input type="text" class="form-control" id="productPrice" name="productPrice"></td>
+								<td><input type="number" class="form-control" id="productPrice" placeholder="숫자만 입력하세요" name="productPrice" required></td>
 							</tr>
 							<tr>
 								<td class="col-1 text-center">상품코드</td>
-								<td><input type="text" class="form-control" id="productCode" name="productCode"></td>
+								<td><input type="text" class="form-control" id="productCode" name="productCode" required></td>
+							</tr>
+							<tr>
+								<td class="col-1 text-center">상품설정</td>
+								<td>
+									<label for="freeDelivery">무료배송 :</label>
+									<input type="checkbox" id="freeDelivery" name="freeDelivery" value="Y">
+								</td>
 							</tr>
 							<tr>
 								<td class="col-1 text-center">상품 검색어</td>
@@ -133,9 +81,7 @@ $(document).ready(function() {
 							<tr>
 								<td class="col-1 text-center">상품 상세설명</td>
 								<td colspan="3">
-								
-									<textarea id="summernote" name="content" rows="30"></textarea>
-									
+									<textarea id="summernoteContent" name="content" rows="30" required></textarea>
 								</td>
 							</tr>
 							<tr>
