@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+/* header 영역 */
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.logo-size {
+	width: 108px;
+	height: 37px;
+}
+
+.header-hover {
+	font-weight: 500;
+}
+
+.header-hover:hover {
+	color: #C335F0;
+	transform: 0.35s;
+}
+
+.blog-header {
+	line-height: 1;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+/* Nav 영역 */
+.nav_hover:hover {
+	color: #C335F0;
+	transform: 0.35s;
+}
+
+.nav_click {
+	color: #C335F0;
+}
+
+.nav-scroller {
+	position: relative;
+	z-index: 2;
+	height: 2.75rem;
+	overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+	display: flex;
+	flex-wrap: nowrap;
+	padding-bottom: 1rem;
+	margin-top: -1px;
+	overflow-x: auto;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
+.nav-scroller .nav-link {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	font-size: .875rem;
+}
+
+.dropdown_button {
+	background: rgba(255, 255, 255, 1);
+	border: 0 solid rgba(255, 255, 255, 1);
+}
+
+.dropdown_button:hover {
+	color: #C335F0;
+	transform: 0.35s;
+}

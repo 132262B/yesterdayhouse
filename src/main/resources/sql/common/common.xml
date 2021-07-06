@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common">
+
+<!-- 카테고리 목록을 DB에서 조회 -->
+<select id="selectGetCategory" resultType="com.maven.yh.common.vo.CategoryVO">
+
+	select id,name from categoryMain
+
+</select>
+
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+<!-- 이메일 중복확인 -->
+<select id="emailCheck" parameterType="String" resultType="int">
+
+	select count(email)
+	  from user
+	 where email = #{email}
+
+</select>
+
+
+<!-- 회원가입 정보 DB에 등록 -->
+
+<insert id="insertRegister" parameterType="com.maven.yh.user.vo.RegisterVO">
+	insert into user (email, 
+	                  password,
+	                  userName,
+	                  phone,
+	                  SMSagree)
+	values(#{email},
+	       SHA2(#{password},256),
+	       #{userName},
+	       #{phone},
+	       <if test="SMSagree == null">
+	       'N')
+	       </if>
+	       <if test="SMSagree != null">
+	       'Y')
+	       </if>
+
+<!-- 동적 쿼리 SMS체크에 체크가 안되있으면 N 되 있으면 Y -->
+</insert>
+
+</mapper>

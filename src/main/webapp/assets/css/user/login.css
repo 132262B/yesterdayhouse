@@ -1,0 +1,87 @@
+/* common */
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+
+.logo-size {
+	width: 138px;
+	height: 45px;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+}
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.Reserved-size {
+	font-size: 10px;
+}
+
+.C335F0 {
+	background-color: #C335F0;
+	color: #ffffff;
+	border: 0;
+	outline: 0;
+}
+
+.C335F0:hover {
+	background-color: #ae2fd4;
+	color: #ffffff;
+}
+
+.options {
+	margin: 0 0 30px 0;
+}
+
+.options a {
+	text-decoration: none;
+	color: #4e4e4e;
+}
+
+.platform_login span {
+	margin: 0 5px;
+}
+
+.platform_login span svg:hover {
+	opacity: 0.6;
+}
+
+.alret_bottom {
+	position: absolute;
+	bottom: 30px;
+}

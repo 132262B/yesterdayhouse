@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+/* 아이디 */
+.table th:nth-child(1) {
+	width: 40px;
+}
+
+/* 이메일 */
+.table th:nth-child(2) {
+	width: 230px;
+}
+
+/* 이름 */
+.table th:nth-child(3) {
+	width: 120px;
+	overflow: auto;
+}
+
+/* 휴대폰 */
+.table th:nth-child(4) {
+	width: 120px;
+}
+
+/* SMS 수신여부 */
+.table th:nth-child(5) {
+	width: 30px;
+}
+
+/* 주소 */
+.table th:nth-child(6) {
+	width: 300px;
+}
+
+/* 가입날짜 */
+.table th:nth-child(7) {
+	width: 90px;
+}
+
+/* 마지막 방문 날짜 */
+.table th:nth-child(8) {
+	width: 90px;
+}

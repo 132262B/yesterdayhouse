@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+<!-- 이메일 중복확인 -->
+<select id="selectLoginCheck" parameterType="com.maven.yh.user.vo.LoginVO" resultType="int">
+
+	select count(email)
+	  from user
+	 where email = #{email}
+	   and password = SHA2(#{password},256)
+
+</select>
+
+<select id="selectLoginInfo" parameterType="String" resultType="com.maven.yh.user.vo.AddSessionVO">
+
+	select id,email,userName,rank
+	  from user
+	 where email = #{email}
+
+</select>
+
+
+</mapper>
