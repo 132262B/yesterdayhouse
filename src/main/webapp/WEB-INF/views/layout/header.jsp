@@ -62,7 +62,7 @@
 				<li><a href="#" class="nav-link link-dark px-2 nav_hover">베스트</a></li>
 
 				<c:forEach var="list" items="${categoryList}">
-					<li><a href="/productList?cg=${list.id}"
+					<li><a href="/store/productList?category=${list.id}"
 						class="nav-link link-dark px-2 nav_hover">${list.name}</a></li>
 				</c:forEach>
 			</ul>

@@ -28,14 +28,14 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="row">
-					<c:forEach var="list" items="${ad}">
+					<c:forEach var="list" items="${productList}">
 						<div class="col-6 col-lg-4 col-xxl-3">
 							<div class="card">
-								<img src="${root}/assets/images/product/Preparing_Image.png"
+								<img src="${list.thumbnail}"
 									class="card-img-top" alt="...">
 								<div class="card-body">
-									<p class="card-text">${list.productName}</p>
-									<p>${list.productPrice}₩</p>
+									<p class="card-text">${list.name}</p>
+									<p>${list.price}₩</p>
 									<span class="badge rounded-pill bg-secondary">무료배송</span>
 								</div>
 							</div>
