@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.card-title {
+	font-weight: 500;
+}
+
+.cartImgReSize {
+	width: 70px;
+	border-radius: 10px;
+}
+
+.input-check-reSize {
+	width: 20px;
+}

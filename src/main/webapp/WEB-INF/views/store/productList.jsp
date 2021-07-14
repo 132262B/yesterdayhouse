@@ -6,7 +6,7 @@
 
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="h-100">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +24,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 	<c:import url="/header"></c:import>
 
 	<div class="container">
@@ -33,9 +33,13 @@
 				<div class="row">
 					<c:choose>
 						<c:when test="${productList eq '[]'}">
-							<div class="text-center">
-								<br /> <br /> <br /> <br />
-								<h3 class="secondary">등록된 상품이 없습니다!</h3>
+							<div class="card text-center mb-4 mt-4">
+								<div class="card-body">
+									<br><br><br><br><br><br><br>
+									<h3 class="secondary">등록된 상품이 없습니다!</h3>
+									<p>추후 상품을 추가할 예정입니다!</p>
+									<br><br><br><br><br><br><br>
+								</div>
 							</div>
 						</c:when>
 
@@ -75,5 +79,7 @@
 			</div>
 		</div>
 	</div>
+	
+	<c:import url="/footer"></c:import>
 </body>
 </html>

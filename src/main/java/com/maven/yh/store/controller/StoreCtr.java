@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.maven.yh.store.service.StoreService;
 
-@Slf4j
 @Controller
 @RequestMapping(value = "/store/*")
 public class StoreCtr {

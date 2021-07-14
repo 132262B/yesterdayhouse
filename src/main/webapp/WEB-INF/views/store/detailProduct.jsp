@@ -28,7 +28,6 @@
 	<c:import url="/header"></c:import>
 	
 	<div class="mt-4"></div>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -40,10 +39,19 @@
 						</div>
 					</div>
 					<div class="col-12 col-lg-5 mb-2">
-						<table class="table">
+						<table>
 							<tbody>
 								<tr>
-									<td colspan="2"><h2 class="productName">${product.name}</h2></td>
+									<td colspan="2">
+										<h2 class="productName">
+										<c:if test="${product.freeDelivery eq 'Y'}">
+											[무료배송]
+										</c:if>
+										<c:if test="${product.freeDelivery eq 'N'}">	</c:if>
+										${product.name}
+										</h2>
+										<hr>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2">리뷰(제작예정)</td>
@@ -52,12 +60,33 @@
 									<td colspan="2"><h2 class="productPrice"><fmt:formatNumber value="${product.price}" pattern="#,###" />원</h2></td>
 								</tr>
 								<tr>
-									<td>혜택</td>
-									<td>혜택</td>
+									<td class="tableresize text-secondary"><p>혜택</p></td>
+									<td><p>혜택<p></td>
 								</tr>
 								<tr>
-									<td>배송</td>
-									<td>혜택</td>
+									<td class="tableresize text-secondary"><p>배송</p></td>
+									<td>
+										<c:if test="${product.freeDelivery eq 'Y'}">
+											<p class="text-decoration-underline">무료배송</p>
+										</c:if>
+										<c:if test="${product.freeDelivery eq 'N'}">
+											<p>베송 상품정보 참고</p>
+										</c:if>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="row">
+											<hr>
+											<div class="col-6 d-grid gap-2">
+												<button type="button" class="btn btn-outline-secondary btn-lg">장바구니 담기</button>
+											</div>
+											<div class="col-6 d-grid gap-2">
+												<button type="button" class="btn btn-outline-primary btn-lg" <c:if test="${sessionScope.sUserID eq null}">disabled</c:if>>구매하기</button>	
+											</div>
+											
+										</div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -68,27 +97,23 @@
 				<div class="col-12">
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">상품정보</button>
-							<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">리뷰</button>
-							<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">배송/환불</button>
+							<button class="nav-link active tab-re-size" id="tab-content-tab" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-controls="tab-content" aria-selected="true">상품정보</button>
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
-						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
+						<div class="tab-pane fade show active" id="tab-content" role="tabpanel" aria-labelledby="tab-content-tab">
 							<div class="position-relative col-12">
 								<div class="position-absolute top-0 start-50 translate-middle-x mt-4">
 									${product.content}
 								</div>
 							</div>
 						</div>
-
-						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-						<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
 </body>
 </html>
