@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+
+.productThumbnail {
+	max-width: 500px;
+	max-height: 500px;
+	width: 100%;
+	height: 100%;
+}
+
+.productName {
+	font-size: 28px;
+	font-weight: 400;
+	color: #464646;
+}
+
+.productPrice {
+	font-size: 22px;
+	font-weight: 600;
+	color: #C335F0;
+}

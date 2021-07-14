@@ -43,7 +43,7 @@ public class RegisterController {
 		return result;
 	}
 	
-	
+	// 회원가입 처리
 	@ResponseBody
 	@RequestMapping(value = "registerCheck", method= RequestMethod.POST)
 	public String registerCheck(HttpServletRequest req, RegisterVO rv) {

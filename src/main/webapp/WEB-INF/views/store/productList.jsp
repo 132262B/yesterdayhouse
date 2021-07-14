@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,7 +13,7 @@
 <title>인테리어 특가 쇼핑 | 어제의 집</title>
 
 <link rel="icon" href="${root}/assets/images/Yesterday_house_icon.png" />
-<link rel="stylesheet" href="${root}/assets/css/common/home_style.css" />
+<link rel="stylesheet" href="${root}/assets/css/store/productList.css" />
 
 <!-- GoogleFont -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -28,19 +31,46 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="row">
-					<c:forEach var="list" items="${productList}">
-						<div class="col-6 col-lg-4 col-xxl-3">
-							<div class="card">
-								<img src="${list.thumbnail}"
-									class="card-img-top" alt="...">
-								<div class="card-body">
-									<p class="card-text">${list.name}</p>
-									<p>${list.price}₩</p>
-									<span class="badge rounded-pill bg-secondary">무료배송</span>
-								</div>
+					<c:choose>
+						<c:when test="${productList eq '[]'}">
+							<div class="text-center">
+								<br /> <br /> <br /> <br />
+								<h3 class="secondary">등록된 상품이 없습니다!</h3>
 							</div>
-						</div>
-					</c:forEach>
+						</c:when>
+
+						<c:when test="${!(productList eq null)}">
+							<c:forEach var="list" items="${productList}">
+								<div class="col-6 col-lg-4 col-xxl-3 mb-4">
+									<div class="card productListInfo">
+										<div class=cardImg>
+											<img src="${list.thumbnail}" class="card-img-top" alt="${list.name}">
+										</div>
+										<div class="card-body">
+											<p class="card-text mb-1">
+												${fn:substring(list.name,0,24)}...</p>
+											<p class="card-text mb-1">
+												₩
+												<fmt:formatNumber value="${list.price}" pattern="#,###" />
+											</p>
+											<a href="${root}/store/product?pdt=${list.id}" class="stretched-link"></a>
+											<c:if test="${list.freeDelivery eq 'Y'}">
+												<span class="badge rounded-pill bg-secondary">무료배송</span>
+											</c:if>
+											<c:if test="${list.freeDelivery eq 'N'}">&nbsp;</c:if>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:when>
+
+						<c:otherwise>
+							<div class="text-center">
+								<h3>죄송합니다, 페이지 처리도중 오류가 발생하였습니다.</h3>
+								<p>고객센터로 문의하시기 바랍니다.</p>
+							</div>
+						</c:otherwise>
+					</c:choose>					
 				</div>
 			</div>
 		</div>

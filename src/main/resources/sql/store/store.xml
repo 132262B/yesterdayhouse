@@ -4,7 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-	<select id="getProductList" parameterType="com.maven.yh.store.vo.CategoryPagingVO" resultType="com.maven.yh.store.vo.ProductListVO">
+	<select id="getProductList" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
 		SELECT id,
 		       thumbnail,
 		       name,
@@ -17,5 +17,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	     order by regdate desc;
 	
 	</select>
+
+	<select id="getDetailProduct" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
+		SELECT id,
+		       thumbnail,
+		       name,
+		       price,
+		       freeDelivery,
+		       regdate,
+		       content
+		  FROM product
+		 WHERE flag ='Y'
+		   AND id = #{pdt}
+	
+	</select>
+
 
 </mapper>
