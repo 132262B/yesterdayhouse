@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cookieGuestID">
+	
+	
+	<!-- 게스트 아이디 생성 -->
+	<insert id="insertGusetID" parameterType="String">
+		INSERT INTO guestID(ranNum) VALUES(#{randomStr});
+	</insert>
+	
+	<!-- 생성된 게스트 아이디에 고유값을 던져, 하나만 가져옴 -->
+	<select id="selectOneGusetID" parameterType="String" resultType="String">
+		SELECT guestID FROM guestID WHERE ranNum = #{randomStr} ORDER BY regdate DESC LIMIT 1
+	</select>
+
+</mapper>

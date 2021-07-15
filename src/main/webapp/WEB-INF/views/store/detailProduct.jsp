@@ -11,9 +11,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>인테리어 특가 쇼핑 | 어제의 집</title>
-
 <link rel="icon" href="${root}/assets/images/Yesterday_house_icon.png" />
 <link rel="stylesheet" href="${root}/assets/css/store/detailProduct.css" />
+<script src="${root}/assets/js/store/cart.js"></script>
 
 <!-- GoogleFont -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -22,6 +22,9 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
@@ -70,8 +73,22 @@
 											<p class="text-decoration-underline">무료배송</p>
 										</c:if>
 										<c:if test="${product.freeDelivery eq 'N'}">
-											<p>베송 상품정보 참고</p>
+											<p>배송 상품정보 참고</p>
 										</c:if>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableresize text-secondary">
+										<p>수량</p>
+									</td>
+									<td>
+										<input type="hidden" value="${product.id}" id="productID" />
+m										<select class="form-select form-select-sm" id="qty">
+												<option value="1" selected>1</option>
+												<c:forEach begin="2" end="9" var="i">
+													<option value="${i}">${i}</option>
+												</c:forEach>
+										</select>
 									</td>
 								</tr>
 								<tr>
@@ -79,12 +96,11 @@
 										<div class="row">
 											<hr>
 											<div class="col-6 d-grid gap-2">
-												<button type="button" class="btn btn-outline-secondary btn-lg">장바구니 담기</button>
+												<button type="button" class="btn btn-outline-secondary btn-lg" onclick='addCart()'>장바구니 담기</button>
 											</div>
 											<div class="col-6 d-grid gap-2">
-												<button type="button" class="btn btn-outline-primary btn-lg" <c:if test="${sessionScope.sUserID eq null}">disabled</c:if>>구매하기</button>	
+												<button type="button" class="btn btn-outline-primary btn-lg"<c:if test="${sessionScope.sUserID eq null}">disabled</c:if>>구매하기</button>	
 											</div>
-											
 										</div>
 									</td>
 								</tr>

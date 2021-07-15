@@ -19,5 +19,15 @@ public class CommonService {
 	public List<CategoryVO> getCategory() {
 		return sqlSession.selectList("selectGetCategory");
 	}
+	
+	// 새로운 게스트 아이디 생성
+	public int insertGuestID(String randomStr) {
+		return sqlSession.insert("insertGusetID",randomStr);
+	}
+	
+	// 생성된 게스트 아이디 조회
+	public String selectGuestID(String randomStr) {
+		return sqlSession.selectOne("selectOneGusetID",randomStr);
+	}
 
 }
