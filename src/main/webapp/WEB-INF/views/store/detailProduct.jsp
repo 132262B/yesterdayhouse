@@ -83,7 +83,7 @@
 									</td>
 									<td>
 										<input type="hidden" value="${product.id}" id="productID" />
-m										<select class="form-select form-select-sm" id="qty">
+										<select class="form-select form-select-sm" id="qty">
 												<option value="1" selected>1</option>
 												<c:forEach begin="2" end="9" var="i">
 													<option value="${i}">${i}</option>
@@ -130,6 +130,23 @@ m										<select class="form-select form-select-sm" id="qty">
 		</div>
 	</div>
 	
-	
+	<!-- Modal -->
+	<div class="modal" tabindex="-1" id="modalCartAlert">
+		<div class="modal-dialog modal-dialog-centered modal-sm">
+			<div class="modal-content">
+				<div class="modal-body text-center mt-4">
+					<p>장바구니에 상품을 담았습니다!</p>
+					<div class="mt-4 d-grid gap-2">
+						<button type="button" class="btn btn-outline-info" onclick="moveCartPage()">장바구니로 이동</button>
+					</div>
+					<div class="mt-2 mb-2 d-grid gap-2">
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </body>
 </html>

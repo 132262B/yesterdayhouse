@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+	<select id="getProductList" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
+		SELECT id,
+		       thumbnail,
+		       name,
+		       price,
+		       freeDelivery,
+		       regdate
+		  FROM product
+		 WHERE flag ='Y'
+		   AND categoryMain = #{category}
+	     order by regdate desc;
+	
+	</select>
+
+	<select id="getDetailProduct" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
+		SELECT id,
+		       thumbnail,
+		       name,
+		       price,
+		       freeDelivery,
+		       regdate,
+		       content
+		  FROM product
+		 WHERE flag ='Y'
+		   AND id = #{pdt}
+	
+	</select>
+
+
+</mapper>

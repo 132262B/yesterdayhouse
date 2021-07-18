@@ -1,42 +1,91 @@
 package com.maven.yh.store.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.maven.yh.common.controller.CookieManagerCtr;
+import com.maven.yh.store.service.CartService;
 import com.maven.yh.store.vo.ProductBuyInfoVO;
 
-import com.maven.yh.store.service.StoreService;
-import com.maven.yh.common.controller.CookieGuestCtr;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class Cart {
 	
 	@Autowired
-	private StoreService StoreService;
+	private CartService CartService;
 	
 	@Autowired
-	private CookieGuestCtr GuestCheckCtr;
+	private CookieManagerCtr CookieManagerCtr;
 	
 	// 장바구니 매핑
 	@RequestMapping(value = "cart")
-	public String cart(ModelMap ModelMap,HttpServletResponse resp) {
+	public String cart(ModelMap ModelMap,HttpServletResponse resp, HttpSession session) {
 		
-		GuestCheckCtr.CheckGuestID();
+		CookieManagerCtr.CheckGuestID();
 		
 		return "store/cart";
 	}
 	
 	// 장바구니 추가
-	@RequestMapping(value = "cart/addcart")
-	public String addCart(ProductBuyInfoVO pbivo, HttpServletRequest req, HttpServletResponse resp) {
-
+	@ResponseBody
+	@RequestMapping(value = "cart/addcart", method= RequestMethod.POST)
+	public String addCart(ProductBuyInfoVO pbv, HttpSession session) {
 		
-	
-		return null;
+		String sessionInfo = (String)session.getAttribute("sUserID");
+		String addCartresult = null;
+		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
+		
+		// 세션이 없을때
+		if(sessionInfo == null) {
+			pbv.setType("cookie");
+			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
+			
+		// 세션이 있을떄,
+		} else if(sessionInfo != null) {
+			pbv.setType("session");
+			pbv.setNum((String)session.getAttribute("sUserID"));
+		}
+		
+		log.info(pbv.getNum());
+		log.info(pbv.getType());
+		pbv.setCartID(CartService.myCartProductCheck(pbv));
+		
+		
+		System.err.println(pbv.getCartID());
+		
+		if(pbv.getCartID() != null) {
+			int updateResult = CartService.upadateQty(pbv);
+			
+			if(updateResult == 1) {
+				addCartresult = "true";
+			// 상품이 insert 되지 않으면 false를 return
+			} else {
+				addCartresult = "false";
+			}
+			
+		} else {
+			int insertResult = CartService.setCartList(pbv);
+			// 상품이 insert 되면 true를 return
+			if(insertResult == 1) {
+				addCartresult = "true";
+			// 상품이 insert 되지 않으면 false를 return
+			} else {
+				addCartresult = "false";
+			}
+		}
+		
+		
+		return addCartresult;
 	}
 }

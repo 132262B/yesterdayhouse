@@ -19,13 +19,21 @@
 			</div>
 			<div class="col-4 d-flex justify-content-end align-items-center">
 				<ul class="nav">
+					<!--  항상 메뉴 -->
+					<li class="nav-item"><a href="${root}/cart" class="nav-link link-dark px-2 header-hover">
+						<button type="button" class="dropdown_button position-relative">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								3
+							<span class="visually-hidden">unread messages</span></span>
+						</button>
+					</a></li>
+					<li class="nav-item">&nbsp;	</li>
 					<!-- 세션값이 없을때 -->
 					<c:if test="${sessionScope.sUserID eq null }">
-						<li class="nav-item"><a href="${root}/user/login"
-							class="nav-link link-dark px-2 header-hover">로그인</a></li>
+						<li class="nav-item"><a href="${root}/user/login" class="nav-link link-dark px-2 header-hover">로그인</a></li>
 						<li class="nav-item nav-link link-dark px-2">|</li>
-						<li class="nav-item"><a href="${root}/user/register"
-							class="nav-link link-dark px-2 header-hover">회원가입</a></li>
+						<li class="nav-item"><a href="${root}/user/register" class="nav-link link-dark px-2 header-hover">회원가입</a></li>
 					</c:if>
 					<!-- 세션값이 있을때 -->
 					<c:if test="${!(sessionScope.sUserID eq null)}">

@@ -12,6 +12,7 @@ import com.maven.yh.store.vo.ProductVO;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.maven.yh.common.controller.CookieManagerCtr;
 import com.maven.yh.store.service.StoreService;
 
 @Controller
@@ -21,9 +22,15 @@ public class StoreCtr {
 	@Autowired
 	private StoreService StoreService;
 	
+	@Autowired
+	private CookieManagerCtr CookieManagerCtr;
+	
 	// 상품 리스트 출력
 	@RequestMapping(value = "productList")
 	public String addProduct(productParameterVO ppv, ModelMap ModelMap) {
+		
+		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
+		
 		// 페이지 내용 호출
 		List<ProductVO> productList= StoreService.getCategoryPaging(ppv);
 		
@@ -57,6 +64,8 @@ public class StoreCtr {
 	// 상세페이지
 	@RequestMapping(value="product")
 	public String detailProduct(productParameterVO ppv, ModelMap ModelMap) {
+		
+		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
 		
 		ProductVO detailProduct = StoreService.getDetailProduct(ppv);
 		

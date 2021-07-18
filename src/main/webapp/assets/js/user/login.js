@@ -42,7 +42,6 @@
 	    
 		$.ajax({
 			type:'post',
-			async:false, //false가 기본값임 - 비동기
 			url: '/user/loginCheck',
 			data: sendData,
 			success: function(data) {

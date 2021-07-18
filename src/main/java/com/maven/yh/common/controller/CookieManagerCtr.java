@@ -14,7 +14,7 @@ import com.maven.yh.common.service.CommonService;
 
 
 @Controller
-public class CookieGuestCtr {
+public class CookieManagerCtr {
 	
 	@Autowired
 	HttpServletResponse resp;
@@ -27,7 +27,7 @@ public class CookieGuestCtr {
 
 	public void CheckGuestID() {
 		
-		Cookie[] cookies = req.getCookies() ;
+		Cookie[] cookies = req.getCookies();
 
 		if (cookies != null) {
 			int result = 0;
@@ -38,7 +38,6 @@ public class CookieGuestCtr {
 					break;
 				}
 			}
-			
 			// 쿠키에 guestID 가 없으면, 쿠키 생성.
 			if (result == 0) {
 				setCookie();
@@ -71,4 +70,22 @@ public class CookieGuestCtr {
         cg.setCookieName("ranNum");
         cg.addCookie(resp, randomStr);
 	}
+	
+	public String getCookieValue(String cookieName) {
+	
+		Cookie[] cookies = req.getCookies();
+		
+		String resultValue = null;
+		
+		for (Cookie cookie : cookies) {
+			
+			if(cookie.getName().equals(cookieName)) {
+				resultValue = cookie.getValue();
+			}
+			
+		}
+		
+		return resultValue;
+	}
+	
 }

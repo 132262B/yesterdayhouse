@@ -2,35 +2,35 @@
 <!-- Sql Mapper -->
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="store">
+<mapper namespace="cart">
 
-	<select id="getProductList" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
-		SELECT id,
-		       thumbnail,
-		       name,
-		       price,
-		       freeDelivery,
-		       regdate
-		  FROM product
-		 WHERE flag ='Y'
-		   AND categoryMain = #{category}
-	     order by regdate desc;
-	
+	<!-- 카트 상품 체크 -->
+	<select id="myCartProductCheck" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="string">
+		SELECT id
+		  FROM cart 
+		 WHERE <if test="type eq 'cookie'">guestNum</if>
+			   <if test="type eq 'session'">userID</if> = #{num} 
+		   AND productID = #{id}
 	</select>
-
-	<select id="getDetailProduct" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.ProductVO">
-		SELECT id,
-		       thumbnail,
-		       name,
-		       price,
-		       freeDelivery,
-		       regdate,
-		       content
-		  FROM product
-		 WHERE flag ='Y'
-		   AND id = #{pdt}
 	
-	</select>
-
-
+	<!-- 카트 상품 추가 -->
+	<insert id="setCartList" parameterType="com.maven.yh.store.vo.productParameterVO">
+		INSERT INTO cart(<if test="type eq 'cookie'">
+						 guestNum
+						 </if>
+						 <if test="type eq 'session'">
+						 userID
+						 </if>,
+		                 productID,
+		                 qty)
+		            VALUES(#{num},
+		            	   #{id},
+		            	   #{qty});
+	</insert>
+	
+	<!-- 카트 상품 Qty 수정 -->
+	<update id="upadateQty" parameterType="String">
+		UPDATE cart SET qty = qty+${qty} WHERE id = #{cartID}
+	</update>
+	
 </mapper>
