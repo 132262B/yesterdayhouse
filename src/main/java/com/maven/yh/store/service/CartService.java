@@ -14,14 +14,18 @@ public class CartService {
 
 	// 카테고리 번호에 따른 제품 정보 받아오기
 	public int setCartList(ProductBuyInfoVO pbv) {
-		return sqlSession.insert("setCartList",pbv);
+		return sqlSession.insert("setCartList", pbv);
 	}
 
 	public String myCartProductCheck(ProductBuyInfoVO pbv) {
-		return sqlSession.selectOne("myCartProductCheck",pbv);
+		return sqlSession.selectOne("myCartProductCheck", pbv);
 	}
 
 	public int upadateQty(ProductBuyInfoVO pbv) {
-		return sqlSession.update("upadateQty",pbv);
+		return sqlSession.update("upadateQty", pbv);
+	}
+
+	public int getCartCount(ProductBuyInfoVO pbv) {
+		return sqlSession.selectOne("getCartCount", pbv);
 	}
 }

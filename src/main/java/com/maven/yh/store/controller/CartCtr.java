@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class Cart {
+public class CartCtr {
 	
 	@Autowired
 	private CartService CartService;
@@ -85,7 +85,26 @@ public class Cart {
 			}
 		}
 		
-		
 		return addCartresult;
+	}
+	
+	
+	public int cartCount(ProductBuyInfoVO pbv, HttpSession session) {
+		String sessionInfo = (String)session.getAttribute("sUserID");
+		
+		int result = 0;
+		String cartCountID = null;
+		// 세션없을때
+		if(sessionInfo == null) {
+			pbv.setType("cookie");
+			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
+		// 세션이 있을때
+		} else {
+			pbv.setType("session");
+			pbv.setNum((String)session.getAttribute("sUserID"));
+		}
+		
+		result = CartService.getCartCount(pbv);
+		return result;
 	}
 }

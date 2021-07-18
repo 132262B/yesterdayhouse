@@ -10,7 +10,7 @@ import com.maven.yh.store.vo.productParameterVO;
 import com.maven.yh.store.service.StoreService;
 
 @Controller
-public class Order {
+public class OrderCtr {
 	
 	@Autowired
 	private StoreService StoreService;
