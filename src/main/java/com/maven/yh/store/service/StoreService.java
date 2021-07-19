@@ -19,7 +19,6 @@ public class StoreService {
 	// 카테고리 번호에 따른 제품 정보 받아오기
 	public List<ProductVO> getCategoryPaging(productParameterVO ppv) {
 		return sqlSession.selectList("getProductList",ppv);
-		
 	}
 
 	// 제품 상세페이지 정보 받아오기

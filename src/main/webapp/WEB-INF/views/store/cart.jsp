@@ -38,30 +38,37 @@
 						<div class="card">
 							<div class="card-body">
 								<h2 class="card-title mb-4">주문/결제</h2>
-								<div class="card">
-									<div class="card-body">
-										<table>
-											<tbody>
-												<tr>
-													<td style="width: 45px"><input class="form-check-input input-check-reSize" type="checkbox" value=""></td>
-													<td rowspan="3">
-														<img src="\Yesterdayhouse_image\thumbnail\3e3448b0-08e6-4bae-82be-60440fadbe85.jpg" class="cartImgReSize" alt="거실 소파커버 베이직">
-													</td>
-													<td style="width: 90%">제품제목</td>
-													<td style="width: 45px"><i class="bi bi-x-lg"></i></td>
-												</tr>
-												<tr>
-													<td rowspan="2"></td>
-													<td>배송비</td>
-													<td rowspan="2"></td>
-												</tr>
-												<tr>
-													<td>수량</td>
-												</tr>
-											</tbody>
-										</table>
+								<!-- 반복문 시작 -->
+								<c:forEach var="cart" items="${cartList}">
+									<div class="card mb-2">
+										<div class="card-body">
+											<table>
+												<tbody>
+													<tr>
+														<!-- <td style="width: 45px"><input class="form-check-input input-check-reSize" type="checkbox" value=""></td> -->
+														<td rowspan="3">
+															<img src="${cart.thumbnail}" class="cartImgReSize" alt="거실 소파커버 베이직">
+														</td>
+														<td style="width: 90%">${cart.name}</td>
+														<td style="width: 45px"><i class="bi bi-x-lg"></i></td>
+													</tr>
+													<tr>
+														<td>
+															배송비 : 
+															<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
+															<c:if test="${cart.freeDelivery eq 'N'}">${cart.deliveryFare}</c:if>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<input type="number" value="${cart.qty}">
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

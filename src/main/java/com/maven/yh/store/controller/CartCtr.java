@@ -1,7 +1,7 @@
 package com.maven.yh.store.controller;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.maven.yh.common.controller.CookieManagerCtr;
 import com.maven.yh.store.service.CartService;
+import com.maven.yh.store.vo.CartListVO;
 import com.maven.yh.store.vo.ProductBuyInfoVO;
+import com.maven.yh.store.vo.ProductVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,9 +32,41 @@ public class CartCtr {
 	
 	// 장바구니 매핑
 	@RequestMapping(value = "cart")
-	public String cart(ModelMap ModelMap,HttpServletResponse resp, HttpSession session) {
+	public String cart(ProductBuyInfoVO pbv, ModelMap ModelMap,HttpServletResponse resp, HttpSession session) {
+		String sessionInfo = (String)session.getAttribute("sUserID");
+		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
 		
-		CookieManagerCtr.CheckGuestID();
+		if(sessionInfo == null) {
+			pbv.setType("cookie");
+			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
+		} else if(sessionInfo != null) {
+			pbv.setType("session");
+			pbv.setNum((String)session.getAttribute("sUserID"));
+		}
+		
+		// 어떻게 자를껀지 지정
+		String firstCut = "\\";
+		String lastCut = "\" style=";
+		List<CartListVO> cartList = CartService.getCartList(pbv);
+		
+		for(CartListVO clv : cartList) {
+			String str = clv.getThumbnail();
+			int resultOne = str.indexOf(firstCut);
+			int resultTwo = str.indexOf(lastCut);
+			
+			// 문제가 없으면 잘라진 이미지를 다시 List에 담는다.
+			try {
+				String cutStr = str.substring(resultOne,resultTwo);
+				clv.setThumbnail(cutStr);
+				
+			// 문제가 있다면 디폴트 이미지를 List에 담는다.
+			} catch (StringIndexOutOfBoundsException d) {
+				String defaultImage = "/assets/images/product/defaultProductImage.png";
+				clv.setThumbnail(defaultImage);
+			}
+		}
+		
+		ModelMap.addAttribute("cartList", cartList);
 		
 		return "store/cart";
 	}
@@ -57,12 +91,7 @@ public class CartCtr {
 			pbv.setNum((String)session.getAttribute("sUserID"));
 		}
 		
-		log.info(pbv.getNum());
-		log.info(pbv.getType());
 		pbv.setCartID(CartService.myCartProductCheck(pbv));
-		
-		
-		System.err.println(pbv.getCartID());
 		
 		if(pbv.getCartID() != null) {
 			int updateResult = CartService.upadateQty(pbv);
@@ -88,8 +117,9 @@ public class CartCtr {
 		return addCartresult;
 	}
 	
-	
+	// 상단 메뉴바 장바구니 수량 카운트
 	public int cartCount(ProductBuyInfoVO pbv, HttpSession session) {
+
 		String sessionInfo = (String)session.getAttribute("sUserID");
 		
 		int result = 0;
@@ -107,4 +137,5 @@ public class CartCtr {
 		result = CartService.getCartCount(pbv);
 		return result;
 	}
+	
 }

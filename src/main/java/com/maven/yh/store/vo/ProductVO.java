@@ -14,6 +14,7 @@ public class ProductVO {
 	private String name;            // 제품 이름
 	private String content;         // 제품 내용
 	private String freeDelivery;    // 제품 무료배송 여부
+	private int deliveryFare;       // 제품 배송비
 	private Date regdate;           // 제품 등록 날짜
 	
 }

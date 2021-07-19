@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	</select>
 	
 	<!-- 카트 조회 -->
-	<select id="selectCart">
+	<select id="getCartList" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.CartListVO">
 		SELECT cart.id,
 		       cart.productID,
 		       cart.qty,
@@ -61,7 +61,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 					   productID,
 					   qty 
 				  FROM cart
-				  WHERE guestNum = 32
+				  WHERE <if test="type eq 'cookie'">guestNum</if>
+			  			<if test="type eq 'session'">userID</if>
+			  			= #{num}
 			  )cart,
 				(SELECT id,
 						thumbnail,
