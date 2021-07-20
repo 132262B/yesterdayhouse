@@ -72,17 +72,18 @@ public class CookieManagerCtr {
 	}
 	
 	public String getCookieValue(String cookieName) {
-	
-		Cookie[] cookies = req.getCookies();
 		
+		Cookie[] cookies = req.getCookies();
 		String resultValue = null;
 		
-		for (Cookie cookie : cookies) {
-			
-			if(cookie.getName().equals(cookieName)) {
-				resultValue = cookie.getValue();
+		try {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals(cookieName)) {
+					resultValue = cookie.getValue();
+				}
 			}
 			
+		} catch (NullPointerException e) {
 		}
 		
 		return resultValue;

@@ -24,6 +24,9 @@ public class MainCtr {
 	
 	@Autowired
 	private CartCtr CartCtr;
+	
+	@Autowired
+	private CookieManagerCtr CookieManagerCtr;
 
 	@RequestMapping(value = "/home")
 	public String home(HttpServletRequest req) {
@@ -33,7 +36,6 @@ public class MainCtr {
 	
 	@RequestMapping(value = "/header")
 	public String header(HttpServletRequest req, ModelMap ModelMap, ProductBuyInfoVO pbv, HttpSession session) {
-		
 		// 헤더에 카테고리 호출부분
 		List<CategoryVO> categoryMain = CommonService.getCategory();
 		
@@ -45,7 +47,6 @@ public class MainCtr {
 		
 		return "layout/header";
 	}
-	
 	
 	@RequestMapping(value = "/footer")
 	public String footer(HttpServletRequest req) {

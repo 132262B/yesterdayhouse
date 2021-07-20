@@ -42,30 +42,23 @@
 								<c:forEach var="cart" items="${cartList}">
 									<div class="card mb-2">
 										<div class="card-body">
-											<table>
-												<tbody>
-													<tr>
-														<!-- <td style="width: 45px"><input class="form-check-input input-check-reSize" type="checkbox" value=""></td> -->
-														<td rowspan="3">
-															<img src="${cart.thumbnail}" class="cartImgReSize" alt="거실 소파커버 베이직">
-														</td>
-														<td style="width: 90%">${cart.name}</td>
-														<td style="width: 45px"><i class="bi bi-x-lg"></i></td>
-													</tr>
-													<tr>
-														<td>
-															배송비 : 
-															<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
-															<c:if test="${cart.freeDelivery eq 'N'}">${cart.deliveryFare}</c:if>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input type="number" value="${cart.qty}">
-														</td>
-													</tr>
-												</tbody>
-											</table>
+											<div class="d-flex bd-highlight">
+												<div class="p-2 bd-highlight">
+													<img src="${cart.thumbnail}" class="cartImgReSize" alt="${cart.name}">
+												</div>
+												<div class="p-2 bd-highlight flex-grow-1">
+													${cart.name}<br>
+													<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
+													<c:if test="${cart.freeDelivery eq 'N'}">${cart.deliveryFare}</c:if>
+													<br>
+													<select class="inputReSize">
+														<c:forEach begin="1" end="9" var="i">
+															<option value="${i}" <c:if test="${i == cart.qty}">selected</c:if>>${i}</option>
+														</c:forEach>
+													</select>
+												</div>
+												<div class="p-2 bd-highlight">x</div>
+											</div>
 										</div>
 									</div>
 								</c:forEach>

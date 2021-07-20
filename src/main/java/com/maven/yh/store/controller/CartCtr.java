@@ -123,7 +123,6 @@ public class CartCtr {
 		String sessionInfo = (String)session.getAttribute("sUserID");
 		
 		int result = 0;
-		String cartCountID = null;
 		// 세션없을때
 		if(sessionInfo == null) {
 			pbv.setType("cookie");
