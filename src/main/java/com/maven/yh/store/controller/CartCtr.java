@@ -77,7 +77,7 @@ public class CartCtr {
 	public String addCart(ProductBuyInfoVO pbv, HttpSession session) {
 		
 		String sessionInfo = (String)session.getAttribute("sUserID");
-		String addCartresult = null;
+		String addCartResult = null;
 		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
 		
 		// 세션이 없을때
@@ -93,28 +93,40 @@ public class CartCtr {
 		
 		pbv.setCartID(CartService.myCartProductCheck(pbv));
 		
-		if(pbv.getCartID() != null) {
-			int updateResult = CartService.upadateQty(pbv);
 			
-			if(updateResult == 1) {
-				addCartresult = "true";
-			// 상품이 insert 되지 않으면 false를 return
+		if(pbv.getCartID() != null) {
+			int myCartProductQty = CartService.myCartProductQty(pbv.getCartID());
+			
+			if((pbv.getQty() + myCartProductQty) > 9) {
+				
+				addCartResult = "qtyError";
+				
 			} else {
-				addCartresult = "false";
+				int updateResult = CartService.upadateQty(pbv);
+				
+				if(updateResult == 1) {
+					addCartResult = "true";
+				// 상품이 insert 되지 않으면 false를 return
+				} else {
+					addCartResult = "false";
+				}
 			}
+			
 			
 		} else {
 			int insertResult = CartService.setCartList(pbv);
 			// 상품이 insert 되면 true를 return
 			if(insertResult == 1) {
-				addCartresult = "true";
+				addCartResult = "true";
 			// 상품이 insert 되지 않으면 false를 return
 			} else {
-				addCartresult = "false";
+				addCartResult = "false";
 			}
-		}
+		}	
+			
 		
-		return addCartresult;
+		
+		return addCartResult;
 	}
 	
 	// 상단 메뉴바 장바구니 수량 카운트

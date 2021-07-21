@@ -39,4 +39,9 @@ public class CartService {
 	public List<CartListVO> getCartList(ProductBuyInfoVO pbv) {
 		return sqlSession.selectList("getCartList", pbv);
 	}
+
+	// 카트 아이디에 몇개의 상품이 들어있는지 확인
+	public int myCartProductQty(String cartID) {
+		return sqlSession.selectOne("myCartProductQty", cartID);
+	}
 }

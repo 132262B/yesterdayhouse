@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ProductBuyInfoVO extends ConnectionInfoVO {
 
-	private String id;     // 제품번호
-	private String qty;    // 제품수량
+	private int id;     // 제품번호
+	private int qty;    // 제품수량
 	private String cartID; // 카트 ID 값
 	
 }

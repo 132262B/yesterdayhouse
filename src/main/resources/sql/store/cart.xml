@@ -46,6 +46,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			   = #{num}
 	
 	</select>
+
+	<select id="myCartProductQty" parameterType="String" resultType="Integer">
+		SELECT qty FROM cart WHERE id = #{cartID};
+	</select>	
 	
 	<!-- 카트 조회 -->
 	<select id="getCartList" parameterType="com.maven.yh.store.vo.productParameterVO" resultType="com.maven.yh.store.vo.CartListVO">
