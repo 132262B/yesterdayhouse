@@ -1,9 +1,7 @@
 # Spring_Project_Yesterdayhouse
 
 
-```sh
-AWS 서버 주소 : http://3.36.150.146:8080/home
-```
+[AWS 서버](http://3.36.150.146:8080/home)
 
 
 ```sh
