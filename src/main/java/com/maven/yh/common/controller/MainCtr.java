@@ -24,9 +24,6 @@ public class MainCtr {
 	
 	@Autowired
 	private CartCtr CartCtr;
-	
-	@Autowired
-	private CookieManagerCtr CookieManagerCtr;
 
 	@RequestMapping(value = "/home")
 	public String home(HttpServletRequest req) {

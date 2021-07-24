@@ -15,6 +15,8 @@
 <link rel="icon" href="${root}/assets/images/Yesterday_house_icon.png" />
 <link rel="stylesheet" href="${root}/assets/css/store/cart.css" />
 
+<script src="${root}/assets/js/store/cart.js"></script>
+
 <!-- GoogleFont -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700;900&display=swap" rel="stylesheet">
@@ -24,11 +26,13 @@
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column">
 	<c:import url="/header"></c:import>
-	
-	<div class="mt-4 bg-light">
+	<div class="mt-4 bg-light h-100">
 
 		<div class="container">
 			<div class="row">
@@ -73,7 +77,12 @@
 																</c:forEach>
 															</select>
 														</div>
-														<div class="p-2 bd-highlight">x</div>
+														<div class="p-2 bd-highlight">
+															<input type="hidden" id="cart${cart.id}" value="${cart.id}">
+															<button type="button" class="btn btn-link" onclick="deleteCart(${cart.id})">
+																<i class="bi bi-x-lg" ></i>
+															</button>
+														</div>
 													</div>
 												</div>
 											</div>

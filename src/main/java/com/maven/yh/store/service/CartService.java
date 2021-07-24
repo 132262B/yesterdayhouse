@@ -44,4 +44,10 @@ public class CartService {
 	public int myCartProductQty(String cartID) {
 		return sqlSession.selectOne("myCartProductQty", cartID);
 	}
+	
+	// 카디 리스트 내용 삭제
+	public int deleteCartList(ProductBuyInfoVO pbv) {
+		return sqlSession.delete("deleteCartList", pbv);
+	}
+	
 }

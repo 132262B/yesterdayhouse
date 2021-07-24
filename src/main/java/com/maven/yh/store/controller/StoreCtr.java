@@ -12,7 +12,7 @@ import com.maven.yh.store.vo.ProductVO;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.maven.yh.common.controller.CookieManagerCtr;
+import com.maven.yh.common.controller.ConnectionManagerCtr;
 import com.maven.yh.store.service.StoreService;
 
 @Controller
@@ -23,7 +23,7 @@ public class StoreCtr {
 	private StoreService StoreService;
 	
 	@Autowired
-	private CookieManagerCtr CookieManagerCtr;
+	private ConnectionManagerCtr CookieManagerCtr;
 	
 	// 상품 리스트 출력
 	@RequestMapping(value = "productList")

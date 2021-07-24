@@ -5,22 +5,27 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.CookieGenerator;
 
 import com.maven.yh.common.service.CommonService;
+import com.maven.yh.store.vo.ProductBuyInfoVO;
 
 
 @Controller
-public class CookieManagerCtr {
+public class ConnectionManagerCtr {
 	
 	@Autowired
 	HttpServletResponse resp;
 	
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	HttpSession session;
 	
 	@Autowired
 	private CommonService CommonService;
@@ -89,4 +94,18 @@ public class CookieManagerCtr {
 		return resultValue;
 	}
 	
+	
+	public ProductBuyInfoVO Check_cookie_session(String sessionInfo, ProductBuyInfoVO pbv) {
+		// 세션없을때
+		if(sessionInfo == null) {
+			pbv.setType("cookie");
+			pbv.setNum(getCookieValue("guestID"));
+		// 세션이 있을때
+		} else {
+			pbv.setType("session");
+			pbv.setNum((String)session.getAttribute("sUserID"));
+		}
+		
+		return pbv;
+	}
 }

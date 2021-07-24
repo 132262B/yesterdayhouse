@@ -80,4 +80,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		  WHERE pro.id = cart.productID
 	</select>
 	
+	
+	<delete id="deleteCartList" parameterType="com.maven.yh.store.vo.productParameterVO">
+		delete 
+		  from cart 
+		 where id = #{cartID} 
+		   and <if test="type eq 'cookie'">guestNum</if> 
+		   	   <if test="type eq 'session'">userID</if>
+		   	   = #{num}
+	</delete>
+	
 </mapper>

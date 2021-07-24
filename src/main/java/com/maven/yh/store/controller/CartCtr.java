@@ -12,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.maven.yh.common.controller.CookieManagerCtr;
+import com.maven.yh.common.controller.ConnectionManagerCtr;
 import com.maven.yh.store.service.CartService;
 import com.maven.yh.store.vo.CartListVO;
 import com.maven.yh.store.vo.ProductBuyInfoVO;
-import com.maven.yh.store.vo.ProductVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 public class CartCtr {
 	
@@ -28,21 +24,14 @@ public class CartCtr {
 	private CartService CartService;
 	
 	@Autowired
-	private CookieManagerCtr CookieManagerCtr;
+	private ConnectionManagerCtr ConnectionManagerCtr;
 	
 	// 장바구니 매핑
 	@RequestMapping(value = "cart")
 	public String cart(ProductBuyInfoVO pbv, ModelMap ModelMap,HttpServletResponse resp, HttpSession session) {
 		String sessionInfo = (String)session.getAttribute("sUserID");
-		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
-		
-		if(sessionInfo == null) {
-			pbv.setType("cookie");
-			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
-		} else if(sessionInfo != null) {
-			pbv.setType("session");
-			pbv.setNum((String)session.getAttribute("sUserID"));
-		}
+		ConnectionManagerCtr.CheckGuestID(); // 쿠키값 체크
+		pbv = ConnectionManagerCtr.Check_cookie_session(sessionInfo, pbv);
 		
 		// 어떻게 자를껀지 지정
 		String firstCut = "\\";
@@ -78,18 +67,8 @@ public class CartCtr {
 		
 		String sessionInfo = (String)session.getAttribute("sUserID");
 		String addCartResult = null;
-		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
-		
-		// 세션이 없을때
-		if(sessionInfo == null) {
-			pbv.setType("cookie");
-			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
-			
-		// 세션이 있을떄,
-		} else if(sessionInfo != null) {
-			pbv.setType("session");
-			pbv.setNum((String)session.getAttribute("sUserID"));
-		}
+		ConnectionManagerCtr.CheckGuestID(); // 쿠키값 체크
+		pbv = ConnectionManagerCtr.Check_cookie_session(sessionInfo, pbv);
 		
 		pbv.setCartID(CartService.myCartProductCheck(pbv));
 		
@@ -111,7 +90,6 @@ public class CartCtr {
 					addCartResult = "false";
 				}
 			}
-			
 			
 		} else {
 			int insertResult = CartService.setCartList(pbv);
@@ -138,7 +116,7 @@ public class CartCtr {
 		// 세션없을때
 		if(sessionInfo == null) {
 			pbv.setType("cookie");
-			pbv.setNum(CookieManagerCtr.getCookieValue("guestID"));
+			pbv.setNum(ConnectionManagerCtr.getCookieValue("guestID"));
 		// 세션이 있을때
 		} else {
 			pbv.setType("session");
@@ -149,4 +127,24 @@ public class CartCtr {
 		return result;
 	}
 	
+	
+	//장바구니 물건 삭제
+	@ResponseBody
+	@RequestMapping(value = "cart/deleteCart", method= RequestMethod.POST)
+	public String cartDelete(ProductBuyInfoVO pbv, HttpSession session) {
+		
+		String sessionInfo = (String)session.getAttribute("sUserID");
+		String deleteCartResult = null;
+		pbv = ConnectionManagerCtr.Check_cookie_session(sessionInfo, pbv);
+		
+		int delectResult = CartService.deleteCartList(pbv);
+		
+		if(delectResult > 0) {
+			deleteCartResult = "true";
+		} else {
+			deleteCartResult = "false";
+		}
+		
+		return deleteCartResult;
+	}
 }
