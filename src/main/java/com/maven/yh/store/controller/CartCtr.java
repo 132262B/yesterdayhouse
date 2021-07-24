@@ -97,7 +97,7 @@ public class CartCtr {
 		if(pbv.getCartID() != null) {
 			int myCartProductQty = CartService.myCartProductQty(pbv.getCartID());
 			
-			if((pbv.getQty() + myCartProductQty) > 9) {
+			if((pbv.getQty() + myCartProductQty) > 99) {
 				
 				addCartResult = "qtyError";
 				

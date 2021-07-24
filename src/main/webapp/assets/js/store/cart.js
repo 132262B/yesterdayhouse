@@ -34,4 +34,3 @@
 	function moveCartPage() {
 		location.replace('/cart') 
 	}
-	

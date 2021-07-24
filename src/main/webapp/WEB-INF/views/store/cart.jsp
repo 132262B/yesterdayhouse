@@ -25,73 +25,89 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 </head>
-<body class="d-flex flex-column h-100 ">
+<body class="d-flex flex-column h-100">
 	<c:import url="/header"></c:import>
 	
-	<div class="mt-4 bg-light h-100">
+	<div class="mt-4 bg-light">
 
 		<div class="container">
 			<div class="row">
-				<div class="col-12 mt-4">
-					<div class="row">
-						<div class="col-7">
-							<div class="card">
-								<div class="card-body">
-									<h2 class="card-title mb-4">주문/결제</h2>
-									<!-- 반복문 시작 -->
-									<c:forEach var="cart" items="${cartList}">
-										<div class="card mb-2">
-											<div class="card-body">
-												<div class="d-flex bd-highlight">
-													<div class="p-2 bd-highlight">
-														<img src="${cart.thumbnail}" class="cartImgReSize" alt="${cart.name}">
+				<c:if test="${cartList eq '[]'}">
+					<div class="gongback"></div>
+					<div class="mt-4 mb-4">
+						<div class="d-flex justify-content-center">
+							<img alt="제품이 없습니다." src="${root}/assets/images/product/nocart.png">
+						</div>
+						<div class="d-flex justify-content-center mt-4">
+							<a href="/home">
+								<button type="button" class="btn btn-lg btn-info text-white">제품 담으로 가기</button>
+							</a>
+						</div>
+					</div>
+					<div class="gongback"></div>
+				</c:if>
+				<c:if test="${!(cartList eq '[]')}">
+					<div class="col-12 mt-4">
+						<div class="row">
+							<div class="col-7">
+								<div class="card">
+									<div class="card-body">
+										<h2 class="card-title mb-4">주문/결제</h2>
+										<!-- 반복문 시작 -->
+										<c:forEach var="cart" items="${cartList}">
+											<div class="card mb-2">
+												<div class="card-body">
+													<div class="d-flex bd-highlight">
+														<div class="p-2 bd-highlight">
+															<img src="${cart.thumbnail}" class="cartImgReSize" alt="${cart.name}">
+														</div>
+														<div class="p-2 bd-highlight flex-grow-1">
+															<h6>${cart.name}</h6>
+															<p class="mb-1 text-black-50">
+															<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
+															<c:if test="${cart.freeDelivery eq 'N'}"><fmt:formatNumber value="${cart.deliveryFare}" pattern="#,###"/></c:if>
+															</p>
+															<select class="inputReSize">
+																<c:forEach begin="1" end="99" var="i">
+																	<option value="${i}" <c:if test="${i == cart.qty}">selected</c:if>>${i}</option>
+																</c:forEach>
+															</select>
+														</div>
+														<div class="p-2 bd-highlight">x</div>
 													</div>
-													<div class="p-2 bd-highlight flex-grow-1">
-														<h6>${cart.name}</h6>
-														<p class="mb-1 text-black-50">
-														<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
-														<c:if test="${cart.freeDelivery eq 'N'}"><fmt:formatNumber value="${cart.deliveryFare}" pattern="#,###"/></c:if>
-														</p>
-														<select class="inputReSize">
-															<c:forEach begin="1" end="9" var="i">
-																<option value="${i}" <c:if test="${i == cart.qty}">selected</c:if>>${i}</option>
-															</c:forEach>
-														</select>
-													</div>
-													<div class="p-2 bd-highlight">x</div>
 												</div>
 											</div>
-										</div>
-									</c:forEach>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
-						</div>
-	
-						<div class="col-5">
-							<div class="card">
-								<div class="card-body">
-									<h2 class="card-title">결제금액</h2>
-									<table class="table">
-										<tbody>
-											<tr>
-												<td><p>총 상품금액</p></td>
-												<td><p class="text-end">000원</p></td>
-											</tr>
-											<tr>
-												<td><p>총 배송비</p></td>
-												<td><p class="text-end">000원</p></td>
-											</tr>
-											<tr>
-												<td><p>총 할인금액</p></td>
-												<td><p class="text-end">000원</p></td>
-											</tr>
-										</tbody>
-									</table>
+		
+							<div class="col-5">
+								<div class="card">
+									<div class="card-body">
+										<h2 class="card-title">결제금액</h2>
+										<table class="table">
+											<tbody>
+												<tr>
+													<td><p>총 상품금액</p></td>
+													<td><p class="text-end">000원</p></td>
+												</tr>
+												<tr>
+													<td><p>총 배송비</p></td>
+													<td><p class="text-end">000원</p></td>
+												</tr>
+												<tr>
+													<td><p>총 할인금액</p></td>
+													<td><p class="text-end">000원</p></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 		</div>
 		
