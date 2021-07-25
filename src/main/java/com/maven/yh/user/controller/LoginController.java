@@ -1,5 +1,8 @@
 package com.maven.yh.user.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.maven.yh.user.vo.AddSessionVO;
 import com.maven.yh.user.vo.LoginVO;
 
+
 import lombok.extern.slf4j.Slf4j;
 
+import com.maven.yh.store.controller.CartCtr;
 import com.maven.yh.user.service.LoginService;
 
 @Slf4j
@@ -24,6 +29,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService LoginService;
+	
+	@Autowired
+	private CartCtr CartCtr;
 	
 	// 로그인 창 매핑
 	@RequestMapping(value = "login")
@@ -51,6 +59,8 @@ public class LoginController {
 			session.setAttribute("sUserEmail", av.getEmail());
 			session.setAttribute("sUserRank", av.getRank());
 			session.setAttribute("sUserName", av.getUserName());
+			
+			CartCtr.updateCart(req);
 			
 			result = "true";
 			

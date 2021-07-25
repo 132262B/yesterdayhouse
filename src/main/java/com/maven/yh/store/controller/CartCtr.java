@@ -1,7 +1,10 @@
 package com.maven.yh.store.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -146,5 +149,19 @@ public class CartCtr {
 		}
 		
 		return deleteCartResult;
+	}
+
+	//장바구니 업데이트
+	public void updateCart(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String sUesrID = (String)session.getAttribute("sUserID");
+		String guestID = ConnectionManagerCtr.getCookieValue("guestID");
+		
+		Map<String, String> cs = new HashMap<String, String>();
+		cs.put("sessionID", sUesrID);
+		cs.put("guestID", guestID);
+		
+		CartService.upadateCart(cs);
+		
 	}
 }

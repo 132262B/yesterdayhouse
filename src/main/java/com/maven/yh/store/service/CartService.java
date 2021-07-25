@@ -1,6 +1,7 @@
 package com.maven.yh.store.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,15 @@ public class CartService {
 		return sqlSession.selectOne("myCartProductQty", cartID);
 	}
 	
-	// 카디 리스트 내용 삭제
+	// 카트 리스트 내용 삭제
 	public int deleteCartList(ProductBuyInfoVO pbv) {
 		return sqlSession.delete("deleteCartList", pbv);
+	}
+
+	// 로그인시 카트 내용 업데이트 (쿠키 에서 세션으로)
+	public int upadateCart(Map<String, String> cs) {
+		return sqlSession.update("updateCart",cs);
+		
 	}
 	
 }
