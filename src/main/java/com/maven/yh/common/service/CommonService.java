@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maven.yh.common.vo.CategoryVO;
+import com.maven.yh.store.vo.ProductVO;
+import com.maven.yh.store.vo.productParameterVO;
 
 
 @Service
@@ -30,4 +32,9 @@ public class CommonService {
 		return sqlSession.selectOne("selectOneGusetID",randomStr);
 	}
 
+	// 카테고리 번호에 따른 제품 정보 받아오기
+	public List<ProductVO> getAllProductList() {
+		return sqlSession.selectList("getAllProductList");
+	}
+	
 }

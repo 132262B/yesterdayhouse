@@ -30,11 +30,10 @@ public class StoreCtr {
 	public String addProduct(productParameterVO ppv, ModelMap ModelMap) {
 		
 		CookieManagerCtr.CheckGuestID(); // 쿠키값 체크
-		
-		// 페이지 내용 호출
+		// 상품리스트에 상품 호출
 		List<ProductVO> productList= StoreService.getCategoryPaging(ppv);
 		
-		// 어떻게 자를껀지 지정
+		// 썸네일 어떻게 자를껀지 지정
 		String firstCut = "\\";
 		String lastCut = "\" style=";
 		// db에 태그를 포함하고 저장된 문자를 잘라주는 역활(List)
