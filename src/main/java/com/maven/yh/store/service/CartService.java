@@ -56,5 +56,9 @@ public class CartService {
 		return sqlSession.update("updateCart",cs);
 		
 	}
+
+	public int updateQtyCartList(ProductBuyInfoVO pbv) {
+		return sqlSession.update("updateQtyCart",pbv);
+	}
 	
 }

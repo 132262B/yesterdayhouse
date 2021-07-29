@@ -53,7 +53,7 @@
 				<c:if test="${!(cartList eq '[]')}">
 					<div class="col-12 mt-4">
 						<div class="row">
-							<div class="col-7">
+							<div class="col-7 mb-4">
 								<div class="card">
 									<div class="card-body">
 										<h2 class="card-title mb-4">주문/결제</h2>
@@ -66,23 +66,27 @@
 															<img src="${cart.thumbnail}" class="cartImgReSize" alt="${cart.name}">
 														</div>
 														<div class="p-2 bd-highlight flex-grow-1">
-															<h6>${cart.name}</h6>
+															<h6><a href="/store/product?pdt=${cart.productID}" class="text-decoration-none text-dark">${cart.name}</a></h6>
 															<p class="mb-1 text-black-50">
 															<c:if test="${cart.freeDelivery eq 'Y'}">무료배송</c:if>
 															<c:if test="${cart.freeDelivery eq 'N'}"><fmt:formatNumber value="${cart.deliveryFare}" pattern="#,###"/></c:if>
 															</p>
-															<select class="inputReSize">
+															<select class="inputReSize" id="cartQty${cart.productID}" onchange="cartUpdateQty(${cart.productID})">
 																<c:forEach begin="1" end="99" var="i">
 																	<option value="${i}" <c:if test="${i == cart.qty}">selected</c:if>>${i}</option>
 																</c:forEach>
 															</select>
 														</div>
 														<div class="p-2 bd-highlight">
-															<input type="hidden" id="cart${cart.id}" value="${cart.id}">
-															<button type="button" class="btn btn-link" onclick="deleteCart(${cart.id})">
-																<i class="bi bi-x-lg" ></i>
+															<button type="button" class="btn btn-link" onclick="deleteCart(${cart.productID})">
+																<i class="bi bi-x-lg text-dark" ></i>
 															</button>
 														</div>
+													</div>
+													<hr>
+													<c:set var="price" value="${cart.price * cart.qty}" />
+													<div class="d-flex flex-row-reverse bd-highlight">
+														<span class="bd-highlight fs-6 fw-bold"><fmt:formatNumber value="${price}" pattern="#,###"/></span>
 													</div>
 												</div>
 											</div>
@@ -103,10 +107,6 @@
 												</tr>
 												<tr>
 													<td><p>총 배송비</p></td>
-													<td><p class="text-end">000원</p></td>
-												</tr>
-												<tr>
-													<td><p>총 할인금액</p></td>
 													<td><p class="text-end">000원</p></td>
 												</tr>
 											</tbody>

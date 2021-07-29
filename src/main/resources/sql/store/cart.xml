@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<delete id="deleteCartList" parameterType="com.maven.yh.store.vo.productParameterVO">
 		delete 
 		  from cart 
-		 where id = #{cartID} 
+		 where productID = #{id} 
 		   and <if test="type eq 'cookie'">guestNum</if> 
 		   	   <if test="type eq 'session'">userID</if>
 		   	   = #{num}
@@ -96,6 +96,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		   SET userID = #{sessionID},
 		       guestNum = null 
 		 WHERE guestNum = #{guestID}
+	</update>
+	
+	<!-- 장바구니에서 수량을 변경했을때 수량을 저장 -->
+	<update id="updateQtyCart" parameterType="com.maven.yh.store.vo.productParameterVO">
+		UPDATE cart
+		   SET qty = #{qty}
+		 WHERE productID = #{id}
+		   AND <if test="type eq 'cookie'">guestNum</if> 
+		   	   <if test="type eq 'session'">userID</if>
+		   	   = #{num}
 	</update>
 	
 </mapper>

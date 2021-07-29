@@ -27,12 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		       price,
 		       freeDelivery,
 		       regdate,
-		       content
+		       content,
+		       deliveryFare
 		  FROM product
 		 WHERE flag ='Y'
 		   AND id = #{pdt}
-	
 	</select>
-
 
 </mapper>

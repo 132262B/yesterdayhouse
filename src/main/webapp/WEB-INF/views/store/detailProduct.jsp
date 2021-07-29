@@ -73,7 +73,7 @@
 											<p class="text-decoration-underline">무료배송</p>
 										</c:if>
 										<c:if test="${product.freeDelivery eq 'N'}">
-											<p>배송 상품정보 참고</p>
+											<p><fmt:formatNumber value="${product.deliveryFare}" pattern="#,###" />원</p>
 										</c:if>
 									</td>
 								</tr>

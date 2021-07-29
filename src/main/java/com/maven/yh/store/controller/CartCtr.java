@@ -150,8 +150,28 @@ public class CartCtr {
 		
 		return deleteCartResult;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "cart/updateQtyCart", method= RequestMethod.POST)
+	public String updateQtyCart(ProductBuyInfoVO pbv, HttpSession session) {
+		
+		String sessionInfo = (String)session.getAttribute("sUserID");
+		String cartUpdateQtyResult = null;
+		pbv = ConnectionManagerCtr.Check_cookie_session(sessionInfo, pbv);
+		
+		int updateQtyResult = CartService.updateQtyCartList(pbv);
+		
+		if(updateQtyResult > 0) {
+			cartUpdateQtyResult = "true";
+		} else {
+			cartUpdateQtyResult = "false";
+		}
+		
+		return cartUpdateQtyResult;
+	}
+	
 
-	//장바구니 업데이트
+	//장바구니 업데이트 (쿠키 > 세션)
 	public void updateCart(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String sUesrID = (String)session.getAttribute("sUserID");

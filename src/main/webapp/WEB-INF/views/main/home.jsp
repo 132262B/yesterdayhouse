@@ -28,7 +28,6 @@
 	<c:import url="/header"></c:import>
 	
 	<!-- section -->
-
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-indicators">
 			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -46,15 +45,13 @@
 				<img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/store/banners/store_home_banners/161365325570472043.jpg?gif=1&w=2560&q=100" class="d-block w-100" alt="...">
 			</div>
 		</div>
-		<button class="carousel-control-prev" type="button"
-			data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="visually-hidden">Previous</span>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
 		</button>
-		<button class="carousel-control-next" type="button"
-			data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="visually-hidden">Next</span>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+			<span class="visually-hidden">Next</span>
 		</button>
 	</div>
 
@@ -78,11 +75,13 @@
 							<c:if test="${list.freeDelivery eq 'Y'}">
 								<span class="badge rounded-pill bg-secondary">무료배송</span>
 							</c:if>
-							<c:if test="${list.freeDelivery eq 'N'}">&nbsp;</c:if>
+							<c:if test="${list.freeDelivery eq 'N'}"></c:if>
+							<span class="badge rounded-pill bg-danger">NEW!</span>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
+			
 			<h4>전체 상품</h4>
 			<c:forEach begin="8" var="list" items="${productList}">
 				<div class="col-6 col-lg-4 col-xxl-3 mb-4">
