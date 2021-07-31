@@ -103,11 +103,33 @@
 											<tbody>
 												<tr>
 													<td><p>총 상품금액</p></td>
-													<td><p class="text-end">000원</p></td>
+													<td>
+														<c:set var="allPrice" value="0" />
+														<c:set var="allDelivery" value="0" />
+														<c:forEach var="list" items="${cartList}">
+															<c:set var="i" value="${list.price * list.qty}" />
+															<c:set var="allPrice" value="${allPrice + i}" />
+															
+															<c:if test="${list.freeDelivery eq 'N'}">
+																<c:set var="j" value="${list.deliveryFare * list.qty}" />
+																<c:set var="allDelivery" value="${allDelivery + j}" />
+															</c:if>
+															
+														</c:forEach>
+														<p class="text-end fw-bold">
+															<fmt:formatNumber value="${allPrice}" pattern="#,###"/>
+														</p>
+													</td>
 												</tr>
 												<tr>
 													<td><p>총 배송비</p></td>
-													<td><p class="text-end">000원</p></td>
+													<td>
+														<p class="text-end fw-bold">
+															<c:if test="${allDelivery != 0}">+</c:if>
+															<c:if test="${allDelivery == 0}"></c:if>
+															<fmt:formatNumber value="${allDelivery}" pattern="#,###"/>
+														</p>
+													</td>
 												</tr>
 											</tbody>
 										</table>
